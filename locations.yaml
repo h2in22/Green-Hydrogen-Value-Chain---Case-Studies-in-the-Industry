@@ -1,0 +1,127 @@
+
+# LOCATIONS
+##
+ 
+locations:
+    
+    PARQUE:
+        coordinates: {lat: -36.830325, lon: -73.090788}
+        techs:
+            wind:
+            
+    # PV en Techumbres de planta        
+    PV_roof:
+        coordinates: {lat: -36.835523, lon: -73.095916}
+        techs:
+            pv_roof:
+                
+    #Electrolizador                    
+    ELZ:
+        coordinates: {lat: -36.835117, lon: -73.092774}
+        techs:
+            elz:
+                      
+    #Celda                    
+    FC:
+        coordinates: {lat: -36.836231, lon: -73.095530}
+        techs:       
+            fc:
+            
+    Storage:
+        coordinates: {lat: -36.835619, lon: -73.092544}
+        techs:       
+            h_storage:            
+            
+           
+    #Empresa PAPELES BIO BIO - UNIPAPEL
+    Papelera:
+        coordinates: {lat: -36.8354279, lon: -73.096252}
+        techs:
+            pv:
+            demand_electricity:            
+                constraints:                   
+                    resource: file=demand.csv:electricity
+            demand_heat:            
+                constraints:                   
+                    resource: file=demand.csv:heat  
+    #Intercambiador de calor                
+    HE:
+        coordinates: {lat: -36.833848, lon: -73.096481}
+        techs:
+            he:
+            heat_storage:
+            
+    # Sub estacion electrica               
+    #Sub_Estacion:
+        #coordinates: {lat: -36.833850, lon: -73.096485}
+        #techs:
+            #AR_Gener:
+   
+##
+# TRANSMISSION CAPACITIES
+##
+
+links:
+    # links-start
+    # Conexiones al ELZ
+    PV_roof,ELZ:
+       techs:        
+           t_electricity:
+               #constraints:
+                   #energy_cap_max: 8000
+    
+    PARQUE,ELZ:
+        techs:        
+            t_electricity:
+                #constraints:
+                    #energy_cap_max: 8000
+                    
+    # Conexiones de Abastecimiento directo              
+    PARQUE,Papelera:
+        techs:        
+            t_electricity:            
+                #constraints:
+                    #energy_cap_max: 8000  
+    PV_roof,Papelera:
+        techs:        
+            t_electricity:            
+                constraints:
+                    energy_cap_max: 60000    
+                 
+    #Sub_Estacion,Papelera:
+        #techs:        
+            #t_electricity:            
+                #constraints:
+                    #energy_cap_max: 8000    
+                    
+    ELZ,Storage:
+        techs: 
+            h_pipes:
+                constraints:
+                    #energy_cap_max: 4000
+
+    FC,Storage:
+        techs: 
+            h_pipes:
+                constraints:
+                    #energy_cap_max: 4000                    
+
+    FC,Papelera:
+        techs:
+            t_electricity:
+                constraints:
+                    #energy_cap_max: 3000
+                   
+    FC,HE:
+        techs:
+            heat_pipes_fc:
+                constraints:
+                    #energy_cap_max: 2000                     
+                    
+    HE,Papelera:
+        techs:
+            t_heat:
+                constraints:
+                    #energy_cap_max: 2000                                       
+                      
+    # links-end
